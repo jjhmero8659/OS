@@ -50,14 +50,13 @@ def exe():
                     distance[h] = -1;
                 
                 for q in range(0,len(frame)): #프레임 길이만큼 반복
-                    print(f"q 확인 : {q} , frame[{q}] {frame[q]} , frame : {frame}")
-                    
-                    for a in range(i-1,0,-1): #현재위치 -1 부터 0까지 reverse 순환 
-                        print(f"현재위치 Reference_string[{a}] : {Reference_string[a]} ")
+                    for a in range(i-1,-1,-1): #현재위치 -1 부터 0까지 reverse 순환
+                        print(f"!!a:{a}") 
                         if(frame[q] == Reference_string[a]):  #프레임[q] 번째 값이 reverse 순환하는 Reference_string[a] 값과 같다면?
                             page_count[q] += 1                   #해당 프레임 index에 해당하는page_count[q]의 count 증가
+                            print(f"a : {a} Reference_string[a] : {Reference_string[a]}")
                             if(distance[q] == -1):            #distance 가 -1 이라면 쓰레기 값이니 값 대입
-                                print(f"distance 값 변경 a 해당하는 frame[q] : {frame[q]} , q : {q}")
+                                print(f"distance!!")
                                 distance[q] = a              #해당하는 대기숫자 index값 대입
                             
                 print(f"distance : {distance}")               #distance 값 출력
@@ -66,6 +65,7 @@ def exe():
                     min_distance = min(distance)
                     min_distance_index = distance.index(min_distance)
                     frame[min_distance_index] = Reference_string[i]
+                #if(중복이 두가지 일때 구현해야함)
                 else:
                     print("중복발생 없음!!")
                     max_page = max(page_count)
@@ -98,3 +98,5 @@ def main():
     
 
 main()
+
+# 7 0 1 2 0 3 0 4 2 3 0 3 2 1 2 0 1 7 0 1       714 fault 14 
