@@ -1,5 +1,3 @@
-
-
 Reference_string = []
 frame = []
 page_fault = 0;
@@ -41,25 +39,24 @@ def exe():
                 print(f"-1 miss 한 숫자는 Reference_string[{i}] : {Reference_string[i]}")
             else:               #배열안에 null이 없다면
                 print("-1이 아닌 miss")
-                for j in range(0,len(frame)):
-                    try:
-                        if(Reference_string.index(frame[j],i+1,len(Reference_string))):
-                            distance[j] = Reference_string.index(frame[j],i+1,len(Reference_string))
-                    except:
-                        distance[j] = 999
-                print(f"distance : {distance}")
+                for q in range(0,len(frame)): 
+                    for a in range(i-1,0,-1): #현재위치 -1 부터 0까지 reverse 순환 
+                        if(frame[q] == Reference_string[a]):  #프레임[q] 번째 값이 reverse 순환하는 Reference_string[a] 값과 같다면?
+                            distance[q] = a                   #프레임[q]와 동일한 index의  distance[q] 에 a를 대입 (작을수록 least하다)
+                            break                             #break
+            
                     
-                max_distance = max(distance)
-                max_distance_index = distance.index(max_distance)
+                min_distance = min(distance)
+                min_distance_index = distance.index(min_distance)
                 
                 print(f"miss 한 숫자는 Reference_string[{i}] : {Reference_string[i]}")
-                frame[max_distance_index] = Reference_string[i]
+                frame[min_distance_index] = Reference_string[i]
                 
 
 def print_result():
     
     global page_fault,count
-    print("Optimal 입니다.")
+    print("Least Recently 입니다.")
     print(f"Reference_string : {Reference_string}")
     print(f"frame : {frame}")
     print(f"distance : {distance}")
