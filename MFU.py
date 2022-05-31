@@ -1,4 +1,7 @@
 
+from dis import dis
+
+
 Reference_string = []
 frame = []
 page_fault = 0;
@@ -43,6 +46,7 @@ def exe():
             if(-1 in frame): 
                 frame[frame.index(-1,0,len(frame))] = Reference_string[i] 
                 print(f"-1 miss 한 숫자는 Reference_string[{i}] : {Reference_string[i]}")
+                print("")
             else:               #배열안에 null이 없다면
                 print("-1이 아닌 miss")
                 for h in range(0,len(page_count)): #count 배열 초기화
@@ -51,7 +55,6 @@ def exe():
                 
                 for q in range(0,len(frame)): #프레임 길이만큼 반복
                     for a in range(i-1,-1,-1): #현재위치 -1 부터 0까지 reverse 순환
-                        print(f"!!a:{a}") 
                         if(frame[q] == Reference_string[a]):  #프레임[q] 번째 값이 reverse 순환하는 Reference_string[a] 값과 같다면?
                             page_count[q] += 1                   #해당 프레임 index에 해당하는page_count[q]의 count 증가
                             print(f"a : {a} Reference_string[a] : {Reference_string[a]}")
@@ -59,18 +62,20 @@ def exe():
                                 print(f"distance!!")
                                 distance[q] = a              #해당하는 대기숫자 index값 대입
                             
-                print(f"distance : {distance}")               #distance 값 출력
-                if(page_count.count(page_count[0]) == 3): #중복 요소가 3개라면?
-                    print("3가지 중복발생!!")
-                    min_distance = min(distance)
-                    min_distance_index = distance.index(min_distance)
-                    frame[min_distance_index] = Reference_string[i]
-                #if(중복이 두가지 일때 구현해야함)
-                else:
-                    print("중복발생 없음!!")
-                    max_page = max(page_count)
-                    max_page_index = page_count.index(max_page)
-                    frame[max_page_index] = Reference_string[i]
+                # print(f"distance : {distance}")               #distance 값 출력
+                
+                max_page = max(page_count) #count 가 가장많은 숫자
+                max_page_index = page_count.index(max_page) # 해당하는 count의 index
+                
+                for b in range(0,len(page_count)):
+                    if(page_count[b] != max_page):
+                        distance[b] = 999
+                
+                
+                min_distance = min(distance)
+                min_distance_index = distance.index(min_distance)
+                frame[min_distance_index] = Reference_string[i]
+                
                 
                 print(f"miss 한 숫자는 Reference_string[{i}] : {Reference_string[i]}")
                 
